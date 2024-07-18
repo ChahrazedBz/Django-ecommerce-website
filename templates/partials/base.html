@@ -12,6 +12,87 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <style>
+   .header__top__right__auth {
+    position: relative;
+    display: inline-block;
+}
+
+.account-link {
+    color: #000;
+    text-decoration: none;
+}
+
+.account-link:hover {
+    cursor: pointer;
+}
+
+.account-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0; /* Align to the left */
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left; /* Ensure text is aligned to the left */
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.account-dropdown:hover .dropdown-content {
+    display: block;
+}
+del {
+    text-decoration: line-through;
+}
+del:hover {
+    text-decoration: line-through;
+}
+.featured__item {
+    position: relative; /* Ensure relative positioning for the parent */
+}
+
+.featured__item__percentage {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 10px; /* Adjust the right position as needed */
+    background-color: red; /* Red background */
+    color: white; /* White text color */
+    padding: 5px; /* Padding around the text */
+    border-radius: 3px; /* Rounded corners */
+    font-size: 12px; /* Adjust font size as needed */
+    z-index: 1; /* Ensure it's above the image */
+}
+
+.featured__item__percentage::after {
+    content: '';
+    position: absolute;
+    top: -10px; /* Adjust to position the triangle properly */
+    right: 0;
+    border-width: 0 10px 10px 10px; /* Triangle dimensions */
+    border-style: solid;
+    border-color: red transparent transparent transparent; /* Red border for triangle */
+    z-index: -1; /* Behind the text */
+}
+
+
+</style>
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
@@ -55,16 +136,30 @@
                 </ul>
             </div>
             <div class="header__top__right__auth">
-                <ul>
-                    {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'userauths:sign-out' %}"><i class="fa fa-rs-sign-out mr-10"></i>Sign-out</a>
-                    </li>
-                    {% else%}
-                    <li><a href="{%url 'userauths:sign-in' %}"><i class="fa fa-rs-sign-in mr-10"></i> Sign-in</a></li>
-                    {% endif %}
-
-                </ul>
-            </div>
+            <div class="account-dropdown">
+            {% if request.user.is_authenticated %}
+                <a href="#" class="account-link"><i class="fa fa-user"></i> Compte</a>
+                <div class="dropdown-content">
+                    <a href="#"><i class="fa fa-user-circle"></i> My Account</a>
+                    <a href="#"><i class="fa fa-truck"></i> Order Tracking</a>
+                    <a href="#"><i class="fa fa-gift"></i> My Voucher</a>
+                    <a href="#"><i class="fa fa-heart"></i> My Wishlists</a>
+                    <a href="#"><i class="fa fa-cog"></i> Settings</a>
+                    <a href="{% url 'userauths:sign-out' %}"><i class="fa fa-sign-out"></i> Sign Out</a>
+                </div>
+            {% else %}
+                <a href="{% url 'userauths:sign-in' %}" class="account-link"><i class="fa fa-user"></i> Compte</a>
+                <div class="dropdown-content">
+                    <a href="#"><i class="fa fa-user-circle"></i> My Account</a>
+                    <a href="#"><i class="fa fa-truck"></i> Order Tracking</a>
+                    <a href="#"><i class="fa fa-gift"></i> My Voucher</a>
+                    <a href="#"><i class="fa fa-heart"></i> My Wishlists</a>
+                    <a href="#"><i class="fa fa-cog"></i> Settings</a>
+                    <a href="{% url 'userauths:sign-out' %}"><i class="fa fa-sign-out"></i> Sign in</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
@@ -129,12 +224,30 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                {%if request.user.is_authenticated %}
-                                    <a href="{% url 'userauths:sign-out'  %}"><i class="fa fa-user"></i> Logout</a>
-                                {% else%}
-                                    <a href="{% url 'userauths:sign-in'  %}"><i class="fa fa-user"></i> Login</a>
-                                {%endif%}
-                            </div>
+        <div class="account-dropdown">
+            {% if request.user.is_authenticated %}
+                <a href="#" class="account-link"><i class="fa fa-user"></i> Compte</a>
+                <div class="dropdown-content">
+                    <a href="#"><i class="fa fa-user-circle"></i> My Account</a>
+                    <a href="#"><i class="fa fa-truck"></i> Order Tracking</a>
+                    <a href="#"><i class="fa fa-gift"></i> My Voucher</a>
+                    <a href="#"><i class="fa fa-heart"></i> My Wishlists</a>
+                    <a href="#"><i class="fa fa-cog"></i> Settings</a>
+                    <a href="{% url 'userauths:sign-out' %}"><i class="fa fa-sign-out"></i> Sign Out</a>
+                </div>
+            {% else %}
+                <a href="{% url 'userauths:sign-in' %}" class="account-link"><i class="fa fa-user"></i> Compte</a>
+                <div class="dropdown-content">
+                    <a href="#"><i class="fa fa-user-circle"></i> My Account</a>
+                    <a href="#"><i class="fa fa-truck"></i> Order Tracking</a>
+                    <a href="#"><i class="fa fa-gift"></i> My Voucher</a>
+                    <a href="#"><i class="fa fa-heart"></i> My Wishlists</a>
+                    <a href="#"><i class="fa fa-cog"></i> Settings</a>
+                    <a href="{% url 'userauths:sign-out' %}"><i class="fa fa-sign-out"></i> Sign in</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
                         </div>
                     </div>
                 </div>

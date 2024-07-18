@@ -104,6 +104,7 @@ class Product(models.Model):
     pid = ShortUUIDField(unique=True, length=10, max_length=20, alphabet="qbcdefgk")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=100, default="Fresh Pear")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
     description = models.TextField(null=True, blank=True, default="This is the product")
@@ -140,7 +141,7 @@ class Product(models.Model):
         return str(self.title)
 
     def get_percentage(self):
-        new_price = (self.price / self.old_price) * 100
+        new_price = ((self.old_price - self.price) / self.old_price) * 100
         return new_price
 
 
