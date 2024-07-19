@@ -1,6 +1,16 @@
 from django.shortcuts import render
 
-from core.models import Product
+from core.models import (
+    Address,
+    CartOrder,
+    CartOrderItems,
+    Category,
+    Product,
+    ProductImages,
+    ProductReview,
+    Vendor,
+    Wishlist,
+)
 
 
 def index(request):
@@ -20,3 +30,10 @@ def product_list_view(request):
 
     context = {"products": products}
     return render(request, "core/product-list.html", context)
+
+def category_list_view(request):
+    category=Category.objects.all()
+    context={
+        "categories":category,
+    }
+    return render(request,"core/category-list.html",context)

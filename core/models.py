@@ -39,7 +39,7 @@ def user_directory_path(instance, filename):
 ################### Category model ###################
 class Category(models.Model):
     cid = ShortUUIDField(
-        unique=True, length=10, max_length=20, prefix="cat", alphabet="qbcdefgk"
+        unique=True, length=10, max_length=20, prefix="cat", alphabet="abcdefgk"
     )
     title = models.CharField(max_length=100, default="Food")
     image = models.ImageField(upload_to="category", default="category.jpg")
@@ -68,7 +68,7 @@ class Tags(models.Model):
 ################### Vendor model ###################
 class Vendor(models.Model):
     vid = ShortUUIDField(
-        unique=True, length=10, max_length=20, prefix="ven", alphabet="qbcdefgk"
+        unique=True, length=10, max_length=20, prefix="ven", alphabet="abcdefgk"
     )
     title = models.CharField(max_length=100, default="oragi")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
@@ -103,7 +103,9 @@ class Vendor(models.Model):
 class Product(models.Model):
     pid = ShortUUIDField(unique=True, length=10, max_length=20, alphabet="qbcdefgk")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True, related_name="category"
+    )
     vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=100, default="Fresh Pear")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
