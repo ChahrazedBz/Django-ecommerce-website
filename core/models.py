@@ -72,6 +72,8 @@ class Vendor(models.Model):
     )
     title = models.CharField(max_length=100, default="oragi")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
+    cover_image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
+
     description = models.TextField(null=True, blank=True, default="I'm the best vendor")
 
     address = models.CharField(max_length=100, default="123 Main street")
@@ -83,6 +85,7 @@ class Vendor(models.Model):
     warranty_period = models.CharField(max_length=100, default="100")
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Vendors"
@@ -106,7 +109,9 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, related_name="category"
     )
-    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+    vendor = models.ForeignKey(
+        Vendor, on_delete=models.SET_NULL, null=True, related_name="vendor"
+    )
     title = models.CharField(max_length=100, default="Fresh Pear")
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
     description = models.TextField(null=True, blank=True, default="This is the product")

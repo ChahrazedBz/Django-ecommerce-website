@@ -273,8 +273,16 @@ del:hover {
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li>
+                             <li><a href="#">Categories</a>
+                        <ul class="header__menu__dropdown">
+                            {% for c in categories %}
+                                <li><a href="{% url 'core:category-product-list' c.cid %}">{{ c.title }}</a></li>
+                            {% endfor %}
+                            <li><a href="{% url 'core:category-list' %}">All items</a></li>
+                        </ul>
+                    </li>
                             <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            {% comment %} <li><a href="./contact.html">Contact</a></li> {% endcomment %}
                         </ul>
                     </nav>
                 </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from core.models import (
     Address,
@@ -31,9 +31,29 @@ def product_list_view(request):
     context = {"products": products}
     return render(request, "core/product-list.html", context)
 
+
 def category_list_view(request):
-    category=Category.objects.all()
-    context={
-        "categories":category,
+    category = Category.objects.all()
+    context = {
+        "categories": category,
     }
-    return render(request,"core/category-list.html",context)
+    return render(request, "core/category-list.html", context)
+
+
+def category_product_list_view(request, cid):
+    category = get_object_or_404(Category, cid=cid)
+    products = Product.objects.filter(product_status="published", category=category)
+
+    context = {"category": category, "products": products}
+    return render(request, "core/category-product-list.html", context)
+
+
+def vendor_list_view(request):
+    vendors = Vendor.objects.all()
+    context = {"vendors": vendors}
+    return render(request, "core/vendor-list.html", context)
+
+def vendor_detail_view(request,vid):
+    vendor= Vendor.objects.get(vid=vid)
+    context = {"vendor": vendor}
+    return render(request, "core/vendor-detail.html", context)
