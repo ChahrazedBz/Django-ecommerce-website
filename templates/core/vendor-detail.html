@@ -1,0 +1,93 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <section class="blog spad">
+        <div class="container">
+            <h3>Vendor's Detail</h3>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="vendor-container">
+                        <div class="vendor-image">
+                            <img src="{{ vendor.image.url }}" alt="{{ vendor.title }}">
+                        </div>
+                        <div class="vendor-content">
+                            <div class="vendor-details">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> {{ vendor.date|date:"Y" }}</li>
+                                </ul>
+                                <h5><a href="{% url 'core:vendor-detail' vendor.vid %}">{{ vendor.title }}</a></h5>
+                                <p>{{ vendor.description }}</p>
+                                <span>{{ vendor.vendor.all.count }} Product{{ vendor.vendor.all.count|pluralize }}</span><br>
+                                <span>{{ vendor.address }}</span><br>
+                                <a href="{% url 'core:vendor-detail' vendor.vid %}" class="blog__btn">{{ vendor.contact }} <span class="arrow_right"></span></a>
+                            </div>
+                            <div class="vendor-social-media">
+                                <h6>Contact:</h6>
+                                <ul class="social-media-columns">
+                                    <li><a href="{{ vendor.facebook }}"><i class="fab fa-facebook-f"></i>Facebook</a></li>
+                                    <li><a href="{{ vendor.twitter }}"><i class="fab fa-twitter }}"></i>Twitter</a></li>
+                                    <li><a href="{{ vendor.instagram }}"><i class="fab fa-instagram }}"></i>Instagram</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <h3>Products</h3>
+           <div class="filter__item">
+                        <div class="row">
+                        
+                            <div class="col-lg-4 col-md-5">
+                                <div class="filter__sort">
+                                    <span>Sort By</span>
+                                    <select>
+                                        <option value="0">Default</option>
+                                        <option value="0">Default</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="filter__found">
+                                    <h6><span>{{products.count}}</span> Product {{products.count|pluralize}} found</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-3">
+                                <div class="filter__option">
+                                    <span class="icon_grid-2x2"></span>
+                                    <span class="icon_ul"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+            <div class="product__discount__slider owl-carousel">
+                {% for product in products %}
+                <div class="col-lg-4">
+                    <div class="product__discount__item">
+                        <div class="product__discount__item__pic set-bg" data-setbg="{{ product.image.url }}">
+                            <div class="product__discount__percent">{{ product.get_percentage|floatformat:0 }}%</div>
+                            <ul class="product__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__discount__item__text">
+                            <span>{{product.category}}</span>
+                            <h5><a href="#">{{product.title|truncatechars:50}}</a></h5>
+                            <p>{{product.description}}</p>
+                            <span><del>${{ product.old_price }}</del></span>
+                            <div class="product__item__price">${{ product.price }}</div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    
+    </section>
+{% endblock content %}

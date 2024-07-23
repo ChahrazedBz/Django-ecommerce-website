@@ -72,7 +72,7 @@ class Vendor(models.Model):
     )
     title = models.CharField(max_length=100, default="oragi")
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
-    cover_image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
+    cover_image = models.ImageField(upload_to=user_directory_path, default="cover.jpg")
 
     description = models.TextField(null=True, blank=True, default="I'm the best vendor")
 
@@ -118,6 +118,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default="1.99")
     old_price = models.DecimalField(max_digits=10, decimal_places=2, default="2.99")
     specification = models.TextField(null=True, blank=True, default="")
+    type = models.CharField(max_length=100, default="Organic", null=True, blank=True)
+    stock_count = models.CharField(
+        max_length=100, default="8 items", null=True, blank=True
+    )
+    life = models.CharField(max_length=100, default="100 days", null=True, blank=True)
+    mfd = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+
     # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
     product_status = models.CharField(
         choices=STATUS, max_length=10, default="in_review"
@@ -156,7 +163,9 @@ class Product(models.Model):
 ################### Product Images model ###################
 class ProductImages(models.Model):
     images = models.ImageField(upload_to="product_images", default="product.jpg")
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(
+        Product, related_name="p_images", on_delete=models.SET_NULL, null=True
+    )
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
