@@ -27,8 +27,15 @@ def index(request):
 
 def product_list_view(request):
     products = Product.objects.filter(product_status="published")
-
-    context = {"products": products}
+    latest_products = Product.objects.filter(
+        featured=True, product_status="published"
+    ).order_by("-id")[:6]
+    category = Category.objects.all()
+    context = {
+        "products": products,
+        "latest_products": latest_products,
+        "categories": category,
+    }
     return render(request, "core/product-list.html", context)
 
 
@@ -64,8 +71,10 @@ def vendor_detail_view(request, vid):
 def product_detail_view(request, pid):
     product = Product.objects.get(pid=pid)
     p_images = product.p_images.all()
+    products = Product.objects.filter(category=product.category).exclude(pid=pid)
     context = {
         "p": product,
         "p_img": p_images,
+        "products": products,
     }
     return render(request, "core/product-detail.html", context)
