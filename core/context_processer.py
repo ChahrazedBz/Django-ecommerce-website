@@ -13,5 +13,8 @@ from core.models import (
 
 def default(request):
     categories = Category.objects.all()
-    # address = Address.objects.filter(user=request.user)
-    return {"categories": categories}
+    try:
+        address = Address.objects.filter(user=request.user)
+    except:
+        address=None
+    return {"categories": categories,"address":address}
