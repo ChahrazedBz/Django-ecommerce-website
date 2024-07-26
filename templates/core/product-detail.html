@@ -51,6 +51,7 @@
                             <li><b>Life</b> <span>{{p.life}}</span></li>
                             <li><b>SKU</b> <span>{{p.sku}}</span></li>
                             <li><b>Stock</b> <span>{{p.stock_count}}</span></li>
+                            <li><b>Tags</b>{%for tag in p.tags.all%}<a href="{% url 'core:tags' tag.slug %}" rel="tag">#{{tag.name}},</a>{%endfor%}</li> 
 
                             <li><b>Share on</b>
                                 <div class="share">

@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render
+from taggit.models import Tag
 
 from core.models import (
     Address,
@@ -78,3 +79,16 @@ def product_detail_view(request, pid):
         "products": products,
     }
     return render(request, "core/product-detail.html", context)
+
+
+def tag_list(request, tag_slug=None):
+    products = Product.objects.filter(product_status="published").order_by("-id")
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        products = products.filter(tags__in=[tag])
+    context = {
+        "products": products,
+        "tag": tag,
+    }
+    return render(request, "core/tag.html", context)
