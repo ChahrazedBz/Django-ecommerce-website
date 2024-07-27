@@ -2,6 +2,36 @@
 {% extends 'partials/base.html' %}
 {% load static%}
 {% block content %}
+      <style>
+.product__details__tab__desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-content {
+    display: flex;
+    align-items: center;
+}
+
+.user-img {
+    width: 50px;  /* Adjust the width as needed */
+    height: 50px;  /* Adjust the height as needed */
+    border-radius: 50%;  /* This makes the image a circle */
+    object-fit: cover;  /* This ensures the image covers the circle without distortion */
+    margin-right: 10px;  /* Adjust spacing between image and text */
+}
+
+.review-text {
+    flex: 1;
+}
+
+.average-rating-reviews {
+    margin-left: 20px;  /* Adjust spacing between text and rating */
+    white-space: nowrap;  /* Prevent text from wrapping */
+}
+</style>
+
+
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
@@ -77,7 +107,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">Reviews <span>(1)</span></a>
+                                    aria-selected="false">Reviews <span>({{reviews.count}})</span></a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -109,21 +139,24 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                <div class="product__details__tab__desc">
-                                    <h6>Products Infomation</h6>
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                                        Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                                        sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
-                                        eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
-                                        sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
-                                        diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
-                                        ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-                                        Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-                                        Proin eget tortor risus.</p>
-                                </div>
+                                {% for r in reviews %}
+                                    <div class="product__details__tab__desc">
+                                        <div class="review-content">
+                                            <img src="https://t4.ftcdn.net/jpg/00/64/67/27/360_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg" alt="" class="user-img"/>
+                                            <div class="review-text">
+                                                <span class="font-xs text-muted">{{ r.date|date:"d M Y - h:m:s" }}</span>
+                                                <h6>{{ r.user.username|title }}</h6>
+                                                <p>{{ r.review }}.</p>
+                                            </div>
+                                            <div class="average-rating-reviews">
+                                                <span>Average rating: {{average_rating.rating|floatformat}} out of 5</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             </div>
+
+
                         </div>
                     </div>
                 </div>
