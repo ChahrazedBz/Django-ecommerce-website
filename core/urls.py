@@ -19,5 +19,8 @@ urlpatterns = [
     path("vendor/<str:vid>/", views.vendor_detail_view, name="vendor-detail"),
 
     #Tags
-    path("products/tags/<slug:tag_slug>/",views.tag_list,name="tags")
+    path("products/tags/<slug:tag_slug>/",views.tag_list,name="tags"),
+
+    #add review
+    path("ajax-add-review/<int:pid>/",views.ajax_add_review,name="ajax_add_review"),
 ]

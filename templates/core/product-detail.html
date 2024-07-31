@@ -155,9 +155,22 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                        </div> 
+                        <form class="commentform" id="commentForm" action="{% url 'core:ajax_add_review' p.id %}" method="POST">
+                        {% csrf_token %}
+                            <div class="review_form">
+                                <h3>Add Review</h3>
+                                <strong class="text-success" id='review-rsp'>Review Added</strong><br>
+                                {{ review_form.review }}
+                            </div>
+                            <div class="rating_form">
+                                {{ review_form.rating }}
+                            </div>
+                            <br>
+                            <br>
+                            <button class="submit" type="submit" width="70" height="30">Submit Review</button>
+                        </form>
 
-
-                        </div>
                     </div>
                 </div>
             </div>
