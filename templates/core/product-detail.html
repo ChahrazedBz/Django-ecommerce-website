@@ -139,10 +139,16 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
+                            <div class="comment-list">
                                 {% for r in reviews %}
                                     <div class="product__details__tab__desc">
                                         <div class="review-content">
                                             <img src="https://t4.ftcdn.net/jpg/00/64/67/27/360_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg" alt="" class="user-img"/>
+                                            <div>
+                                            {%for s in review.rating %}
+                                             <i class="fas fa-star text-warning"></i>
+                                            {%endfor%}
+                                            </div>
                                             <div class="review-text">
                                                 <span class="font-xs text-muted">{{ r.date|date:"d M Y - h:m:s" }}</span>
                                                 <h6>{{ r.user.username|title }}</h6>
@@ -155,12 +161,16 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                            </div>
                         </div> 
-                        <form class="commentform" id="commentForm" action="{% url 'core:ajax_add_review' p.id %}" method="POST">
+                        <form class="commentform hide-comment-form" id="commentForm" action="{% url 'core:ajax_add_review' p.id %}" method="POST">
                         {% csrf_token %}
+                        {%if request.user.is_authenticated%}
+                        {%if make_review %}
+                        
                             <div class="review_form">
                                 <h3>Add Review</h3>
-                                <strong class="text-success" id='review-rsp'>Review Added</strong><br>
+                                <strong class="text-success" id="review-rsp">Review Add</strong><br>
                                 {{ review_form.review }}
                             </div>
                             <div class="rating_form">
@@ -168,7 +178,9 @@
                             </div>
                             <br>
                             <br>
-                            <button class="submit" type="submit" width="70" height="30">Submit Review</button>
+                            <button class="submit" type="submit" width="70" height="30">Submit Review</button> 
+                        {%endif%}
+                        {%endif%}
                         </form>
 
                     </div>
