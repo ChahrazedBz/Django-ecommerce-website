@@ -10,16 +10,31 @@
             <div class="row">
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
+                        <h2><b>Filter By</b></h2>
+                        <br><br>
                         <div class="sidebar__item">
-                            <h4>Department</h4>
-                            <ul>
+                        <div class="container">
+
+                            <h4> Categories</h4>
+                            <div class="checkbox-container">
                             {%for c in categories%}
-                                <li><a href="{%url 'core:category-product-list' c.cid %}">{{c.title}}</a></li>
+                                <input type="checkbox" class="form-check-input filter-checkbox" id="milks-and-dairies"  data-filter="category" name="checkbox" value="{{c.id}}">
+                                <label for="milks-and-dairies"><a href="{% url 'core:category-product-list' c.cid%}">{{c.title}}</label><br>
                             {%endfor%}
-                            </ul>
+                            </div>
+                        <br><br>
                         </div>
-                        <div class="sidebar__item">
-                            <h4>Price</h4>
+                            <h4> Vendors</h4>
+                            <div class="checkbox-container">
+                            {%for v in vendors%}
+                                <input type="checkbox"  class="form-check-input filter-checkbox " id="aldi" data-filter="vendor" name="checkbox" value="{{v.id}}">
+                                <label for="aldi"><a href="{% url 'core:vendor-detail' v.vid%}">{{v.title}}</label><br>
+                            {%endfor%}   
+                            </div>
+                        <br><br>
+
+
+                            <h4> Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                                     data-min="10" data-max="540">
@@ -34,9 +49,10 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="sidebar__item sidebar__item__color--option">
-                            <h4>Colors</h4>
+                            <h4> Colors</h4>
                             <div class="sidebar__item__color sidebar__item__color--white">
                                 <label for="white">
                                     White
@@ -75,7 +91,7 @@
                             </div>
                         </div>
                         <div class="sidebar__item">
-                            <h4>Popular Size</h4>
+                            <h4> Popular Size</h4>
                             <div class="sidebar__item__size">
                                 <label for="large">
                                     Large
@@ -101,7 +117,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="sidebar__item">
+                        {% comment %} <div class="sidebar__item">
                             <div class="latest-product__text">
                                 <h4>Latest Products</h4>
                                 <div class="latest-product__slider owl-carousel">
@@ -165,7 +181,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">

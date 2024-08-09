@@ -13,8 +13,11 @@ from core.models import (
 
 def default(request):
     categories = Category.objects.all()
+    vendors=Vendor.objects.all()
     try:
         address = Address.objects.filter(user=request.user)
+        
+
     except:
         address=None
-    return {"categories": categories,"address":address}
+    return {"categories": categories,"address":address,"vendors":vendors}
