@@ -226,7 +226,7 @@ del:hover {
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
+                <li class="active"><a href="{%url 'core:index' %}">Home</a></li>
                 <li><a href="{%url 'core:product-list'%}">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
@@ -326,7 +326,7 @@ del:hover {
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
+                            <li class="active"><a href="{% url 'core:index' %}">Home</a></li>
                             <li><a href="{% url 'core:product-list'%}">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
@@ -336,7 +336,7 @@ del:hover {
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Categories</a>
+                            <li><a href="{% url 'core:category-list' %}">Categories</a>
                         <ul class="header__menu__dropdown">
                             {% for c in categories %}
                                 <li><a href="{% url 'core:category-product-list' c.cid %}">{{ c.title }}</a></li>
