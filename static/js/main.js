@@ -162,23 +162,35 @@
     /*-----------------------
 		Price Range Slider
 	------------------------ */
-    var rangeSlider = $(".price-range"),
-        minamount = $("#minamount"),
-        maxamount = $("#maxamount"),
-        minPrice = rangeSlider.data('min'),
-        maxPrice = rangeSlider.data('max');
-    rangeSlider.slider({
-        range: true,
-        min: minPrice,
-        max: maxPrice,
-        values: [minPrice, maxPrice],
-        slide: function (event, ui) {
-            minamount.val('$' + ui.values[0]);
-            maxamount.val('$' + ui.values[1]);
+    $(document).ready(function() {
+        var rangeSlider = $(".price-range"),
+            minamount = $("#minamount"),
+            maxamount = $("#maxamount"),
+            minPrice = parseFloat(rangeSlider.data('min')),
+            maxPrice = parseFloat(rangeSlider.data('max'));
+        
+        console.log('Min Price:', minPrice); // Should log a number
+        console.log('Max Price:', maxPrice); // Should log a number
+        
+        if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+            rangeSlider.slider({
+                range: true,
+                min: minPrice,
+                max: maxPrice,
+                values: [minPrice, maxPrice],
+                slide: function(event, ui) {
+                    minamount.val('$' + ui.values[0]);
+                    maxamount.val('$' + ui.values[1]);
+                }
+            });
+    
+            minamount.val('$' + rangeSlider.slider("values", 0));
+            maxamount.val('$' + rangeSlider.slider("values", 1));
+        } else {
+            console.error("Invalid min or max price:", minPrice, maxPrice);
         }
     });
-    minamount.val('$' + rangeSlider.slider("values", 0));
-    maxamount.val('$' + rangeSlider.slider("values", 1));
+    
 
     /*--------------------------
         Select

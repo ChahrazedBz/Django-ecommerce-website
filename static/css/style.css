@@ -1116,63 +1116,68 @@ ol {
 	right: 0;
 }
 
+.price-range-wrap {
+    width: 100%; /* Ensure it takes up the full width */
+    margin: 20px 0; /* Adjust as needed */
+}
+
+.price-range {
+    width: 100%; /* Ensure the slider takes up the full width */
+    height: 10px; /* Adjust height */
+    margin: 10px 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+.ui-slider-handle {
+    width: 20px; /* Consistent handle size */
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: none;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
 .price-range-wrap .range-slider {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .price-range-wrap .range-slider .price-input {
-	position: relative;
+    position: relative;
 }
 
 .price-range-wrap .range-slider .price-input:after {
-	position: absolute;
-	left: 38px;
-	top: 13px;
-	height: 1px;
-	width: 5px;
-	background: #dd2222;
-	content: "";
+    position: absolute;
+    left: 38px;
+    top: 13px;
+    height: 1px;
+    width: 5px;
+    background: #dd2222;
+    content: "";
 }
 
 .price-range-wrap .range-slider .price-input input {
-	font-size: 16px;
-	color: #dd2222;
-	font-weight: 700;
-	max-width: 20%;
-	border: none;
-	display: inline-block;
-}
-
-.price-range-wrap .price-range {
-	border-radius: 0;
+    font-size: 16px;
+    color: #dd2222;
+    font-weight: 700;
+    max-width: 25%; /* Adjust width for input elements */
+    border: none;
+    display: inline-block;
 }
 
 .price-range-wrap .price-range.ui-widget-content {
-	border: none;
-	background: #ebebeb;
-	height: 5px;
-}
-
-.price-range-wrap .price-range.ui-widget-content .ui-slider-handle {
-	height: 13px;
-	width: 13px;
-	border-radius: 50%;
-	background: #ffffff;
-	border: none;
-	-webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-	box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-	outline: none;
-	cursor: pointer;
+    border: none;
+    background: #ebebeb;
+    height: 10px; /* Match height of the slider track */
 }
 
 .price-range-wrap .price-range .ui-slider-range {
-	background: #dd2222;
-	border-radius: 0;
+    background: #dd2222;
+    border-radius: 0;
 }
 
-.price-range-wrap .price-range .ui-slider-range.ui-corner-all.ui-widget-header:last-child {
-	background: #dd2222;
-}
+
 
 .sidebar__item__color {
 	float: left;

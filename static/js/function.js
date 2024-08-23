@@ -1,3 +1,4 @@
+
 console.log("working Fine");
 
 const monthNames = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -44,31 +45,55 @@ $("#commentForm").submit(function (e) {
 });
 
 $(document).ready(function () {
-    $(".filter-checkbox").on("click", function () {
-        let filter_object = {};
+//     $(".filter-checkbox").on("click", function () {
+//         let filter_object = {};
         
-        $(".filter-checkbox").each(function () {
-            let filter_value = $(this).val();
-            let filter_key = $(this).data("filter");
+//         $(".filter-checkbox").each(function () {
+//             let filter_value = $(this).val();
+//             let filter_key = $(this).data("filter");
 
-            filter_object[filter_key] = Array.from(document.querySelectorAll(`input[data-filter=${filter_key}]:checked`))
-                .map(element => element.value);
-        });
+//             filter_object[filter_key] = Array.from(document.querySelectorAll(`input[data-filter=${filter_key}]:checked`))
+//                 .map(element => element.value);
+//         });
 
-        $.ajax({
-            url: '/filter-product',
-            data: filter_object,
-            dataType: 'json',
-            beforeSend: function () {
-                console.log("Sending data ...");
-            },
-            success: function (response) {
-                console.log(response); // Inspect the response to ensure it's correct
-                $("#filtered-product").html(response.data); // Update the HTML with the filtered products
-            },
-            error: function (xhr, status, error) {
-                console.error("AJAX request failed:", status, error);
-            }
-        });
-    });
-});
+        
+//         $.ajax({
+//             url :"{% url 'filter-product' %}",
+//             data: filter_object,
+//             dataType: 'json',
+//             beforeSend: function () {
+//                 console.log("Sending data ...");
+//             },
+//             success: function (response) {
+//                 console.log(response); // Inspect the response to ensure it's correct
+//                 $("#filtered-product").html(response.data); // Update the HTML with the filtered products
+//             }
+//         })
+        
+//     })
+    $("#slider-range").on("blur",function(){
+        let min_price=$(this).attr("min")
+        let max_price=$(this).attr("max")
+        let current_price=$(this).val()
+        console.log("Current Price is:",current_price);
+        console.log("Max price is :",max_price);
+        console.log("Min Price is:",min_price);
+        
+        if(current_price <parseInt(min_price) || current_price >parseInt(max_price)){
+            console.log("Price Error Occured");
+            
+            min_price=Math.round(min_price *100)/100
+            max_price=Math.round(max_price *100)/100
+
+            
+            alert("Price must between $" +min_price+ 'and $' +max_price)
+            $(this).val(min_price)
+            $('#range').val(min_price)
+            $(this).focus()
+            return false
+            
+        }
+        
+    })
+    
+})
